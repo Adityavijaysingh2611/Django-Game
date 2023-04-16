@@ -1,0 +1,160 @@
+
+{% extends 'Quiz/dependencies.html' %}
+
+{% block content %}
+{% load static %}
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,200;0,400;1,300&family=Sedgwick+Ave+Display&family=Tilt+Prism&display=swap');
+        @import "https://unpkg.com/open-props";
+    </style>
+
+<style>
+    body{
+        background-color: #081621;
+        background-image: url('https://cdn.marvel.com/u/prod/aouquiz/images/background_desktop.jpg');
+        background-repeat: no-repeat;
+        font-family: 'Roboto Mono', monospace;     
+    }
+    .container{
+        padding-top: 21px;
+      font-size: 18px;
+      color: #fff;
+      background-color: rgb(15,34,48,0.2);
+
+      /* margin-right: 20px; */
+      /* background-color:  #000080;
+       */
+       /* background: "Quiz\templates\Quiz\pic\background_desktop.jpg"; */
+
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 0;
+      width: 100%;
+    }
+
+    .form-check-label:hover{
+        background-color: rgba(189, 37, 10, 0.142);
+        
+    }
+    
+    
+
+
+    #displaytimer{
+        background-color: rgba(226, 43, 43, 0.543);
+        margin-bottom:15px ;
+        width: 220px;
+        float: right;
+        
+    }
+
+    /* 
+    
+    */
+    
+* {
+  box-sizing: border-box;
+}
+
+
+
+.btn-primary {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-6);
+  font-size: var(--font-size-3);
+  color: rgb(13, 10, 10);
+  background: rgb(189, 187, 187);
+  border: 0;
+  padding: var(--size-1) var(--size-6);
+  transform: translateY(calc(var(--y, 0) * 1%)) scale(var(--scale));
+  transition: transform 0.1s;
+  position: relative;
+margin-left: 20px;
+
+}
+
+.btn-primary:hover {
+  --y: -10;
+  --scale: 1.1;
+  --border-scale: 1;
+  background-color: rgba(171, 7, 7, 0.502);
+}
+
+.btn-primary:active {
+  --y: 5%;
+  --scale: 0.9;
+  --border-scale: 0.9, 0.8;
+}
+
+
+    
+    
+  </style>
+
+
+<div class="container">
+<h1 style="padding-bottom:20px ;">Let's test your Critical Thinking and Time Management</h1>
+
+<div   id="displaytimer"><b>Timer: 0 seconds</b></div>
+
+ <form method='post' action=''>
+    {% csrf_token %}
+    <h2 style="margin-bottom: 50px;">Guess the marvel character?</h2>
+    {% for q  in questions%}
+    <div class="form-group">
+      <label for="question">{{q.question}}</label>
+    </div>
+    <div class="form-check">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios1" value="option1" checked>
+            <label class="form-check-label" for="gridRadios1">
+                {{q.op1}}
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios2" value="option2">
+            <label class="form-check-label" for="gridRadios2">
+                {{q.op2}}
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios1" value="option3">
+            <label class="form-check-label" for="gridRadios1">
+                {{q.op3}}
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{q.question}}" id="gridRadios2" value="option4">
+            <label class="form-check-label" for="gridRadios2">
+                {{q.op4}}
+            </label>
+        </div>
+        <br>
+    </div>    
+    {% endfor %}
+    <input id='timer' type='hidden' name="timer" value="">
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+    {% block script %}
+        <script>
+
+            console.log('hello world')
+            const timer=document.getElementById('displaytimer')
+            console.log(timer.textContent)
+            const inputtag = document.getElementById('timer')
+
+            t=0
+            setInterval(()=>{
+                t+=1
+                timer.innerHTML ="<b>Timer: " +t+" seconds</b>"
+                inputtag.value = t
+            },1000)
+        </script>
+    {% endblock script %}
+
+</div>
+{% endblock %}
+ 

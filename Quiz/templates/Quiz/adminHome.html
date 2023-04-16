@@ -1,0 +1,40 @@
+
+{% extends 'Quiz/dependencies.html' %}
+
+{% block content %}
+{% load static %}
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,200;0,400;1,300&family=Sedgwick+Ave+Display&family=Tilt+Prism&display=swap');
+    @import "https://unpkg.com/open-props";
+  </style>
+
+<style>
+
+body{
+    background-color: #081621;
+    color: aliceblue;
+    font-family: 'Roboto Mono', monospace;
+}
+
+li{
+    margin: 20px;
+
+}
+
+</style>
+
+<div class="container ">
+<h1>Welcome to Admin Panel</h1>
+
+<h3>Total Participation : {{count}}</h3>
+
+<h4>The leaderboard : </h4>
+
+<h5>Name score time</h5>
+{% for u in sorted %}
+    <li>{{ u.name }}, {{u.score}}, {{u.time}} </li>
+{% endfor %}
+</div>
+{% endblock %}
+ 
